@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript 基础练习</title>
+    <style>
+        body {
+            font-family: "Microsoft YaHei", Arial, sans-serif;
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 20px;
+            background: #fafafa;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            color: #e91e63;
+        }
+        h2 {
+            color: #9c27b0;
+            margin-top: 25px;
+            border-bottom: 2px solid #9c27b0;
+            padding-bottom: 5px;
+        }
+        .output {
+            background: #263238;
+            color: #4caf50;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: "Consolas", monospace;
+            font-size: 14px;
+            white-space: pre-wrap;
+            margin: 10px 0 20px;
+        }
+        .info {
+            background: #e3f2fd;
+            padding: 10px 15px;
+            border-left: 4px solid #2196f3;
+            margin: 10px 0;
+            border-radius: 0 4px 4px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>JavaScript 基础练习</h1>
+
+    <h2>1. 变量定义</h2>
+    <div class="output" id="varDemo"></div>
+
+    <h2>2. 不同类型变量</h2>
+    <div class="output" id="typeDemo"></div>
+
+    <h2>3. 表达式运算</h2>
+    <div class="output" id="exprDemo"></div>
+
+    <h2>4. 流程控制（if / for）</h2>
+    <div class="output" id="flowDemo"></div>
+
+    <h2>5. 自定义函数</h2>
+    <div class="output" id="funcDemo"></div>
+
+    <script>
+    // ============================================
+    // JavaScript 基础练习
+    // ============================================
+
+    // 获取输出容器
+    const $ = id => document.getElementById(id);
+
+    // 打印函数：向指定容器输出文本
+    const print = (id, text) => {
+        $(id).textContent += text + '\n';
+    };
+
+    // ============================================
+    // 1. 变量定义
+    // ============================================
+    print('varDemo', '=== 变量定义 ===');
+
+    // var：函数作用域，可重复声明，存在变量提升
+    var username = 'Alice';
+    var username = 'Bob';   // var 可以重复声明
+    print('varDemo', `var 重复声明 username: ${username}`);
+
+    // let：块级作用域，不能重复声明
+    let score = 85;
+    // let score = 90;  // 错误：不能重复声明
+    print('varDemo', `let score: ${score}`);
+
+    // const：常量，声明时必须赋值，之后不能重新赋值
+    const PI = 3.14159;
+    print('varDemo', `const PI: ${PI}`);
+    // PI = 3.14;  // 错误：不能重新赋值
+
+    // ============================================
+    // 2. 不同类型变量
+    // ============================================
+    print('typeDemo', '=== 不同类型变量 ===');
+
+    // 字符串类型
+    let str = 'Hello, JavaScript!';
+    print('typeDemo', `字符串 str: "${str}"`);
+
+    // 数值类型
+    let integer = 42;          // 整数
+    let floatNum = 3.14;       // 浮点数
+    let negative = -10;        // 负数
+    print('typeDemo', `整数: ${integer}, 浮点: ${floatNum}, 负数: ${negative}`);
+
+    // 布尔类型
+    let isActive = true;
+    let isEmpty = false;
+    print('typeDemo', `布尔 isActive: ${isActive}, isEmpty: ${isEmpty}`);
+
+    // undefined：声明但未赋值
+    let uninitialized;
+    print('typeDemo', `undefined: ${uninitialized}`);
+
+    // null：空值
+    let empty = null;
+    print('typeDemo', `null: ${empty}`);
+
+    // 数组
+    let arr = [10, 20, 30, 40];
+    print('typeDemo', `数组: [${arr.join(', ')}]`);
+
+    // 对象
+    let user = {
+        name: '张三',
+        age: 28,
+        city: '北京'
+    };
+    print('typeDemo', `对象: ${user.name}, ${user.age}岁, 来自${user.city}`);
+
+    // typeof 检测类型
+    print('typeDemo', '\ntypeof 检测:');
+    print('typeDemo', `typeof str: ${typeof str}`);
+    print('typeDemo', `typeof integer: ${typeof integer}`);
+    print('typeDemo', `typeof isActive: ${typeof isActive}`);
+    print('typeDemo', `typeof arr: ${typeof arr}`);
+
+    // ============================================
+    // 3. 表达式运算
+    // ============================================
+    print('exprDemo', '=== 表达式运算 ===');
+
+    // 算术运算符
+    let x = 15, y = 4;
+    print('exprDemo', `x = ${x}, y = ${y}`);
+    print('exprDemo', `x + y = ${x + y}`);
+    print('exprDemo', `x - y = ${x - y}`);
+    print('exprDemo', `x * y = ${x * y}`);
+    print('exprDemo', `x / y = ${x / y}`);
+    print('exprDemo', `x % y = ${x % y} (取余)`);
+    print('exprDemo', `x ** y = ${x ** y} (幂运算)`);
+
+    // 赋值运算
+    let n = 10;
+    n += 5;   // n = n + 5
+    print('exprDemo', `\nn += 5 后 n = ${n}`);
+    n *= 2;   // n = n * 2
+    print('exprDemo', `n *= 2 后 n = ${n}`);
+
+    // 比较运算
+    print('exprDemo', '\n比较运算:');
+    print('exprDemo', `3 == "3": ${3 == "3"} (宽松相等，类型转换)`);
+    print('exprDemo', `3 === "3": ${3 === "3"} (严格相等，不类型转换)`);
+    print('exprDemo', `5 > 3 && 5 >= 5: ${5 > 3 && 5 >= 5}`);
+    print('exprDemo', `5 > 3 || 2 > 8: ${5 > 3 || 2 > 8}`);
+    print('exprDemo', `!(3 > 5): ${!(3 > 5)}`);
+
+    // 三元运算符
+    let age = 20;
+    let ticket = age >= 18 ? '成人票' : '儿童票';
+    print('exprDemo', `\n三元运算: age=${age}, ticket=${ticket}`);
+
+    // ============================================
+    // 4. 流程控制（if / for）
+    // ============================================
+    print('flowDemo', '=== 流程控制 ===');
+
+    // --- if 分支 ---
+    print('flowDemo', '\n--- if 分支 ---');
+    let temperature = 22;
+    if (temperature < 10) {
+        print('flowDemo', `温度${temperature}°C，比较冷，穿外套`);
+    } else if (temperature < 25) {
+        print('flowDemo', `温度${temperature}°C，舒适，穿长袖`);
+    } else {
+        print('flowDemo', `温度${temperature}°C，较热，穿短袖`);
+    }
+
+    // --- for 循环 ---
+    print('flowDemo', '\n--- for 循环 ---');
+    // 普通 for 循环
+    print('flowDemo', '普通 for 循环（1-5）:');
+    for (let i = 1; i <= 5; i++) {
+        print('flowDemo', `  第 ${i} 次循环`);
+    }
+
+    // for 遍历数组
+    let colors = ['红', '绿', '蓝'];
+    print('flowDemo', '\nfor 遍历数组:');
+    for (let i = 0; i < colors.length; i++) {
+        print('flowDemo', `  颜色 ${i + 1}: ${colors[i]}`);
+    }
+
+    // for...of（遍历元素）
+    print('flowDemo', '\nfor...of 遍历:');
+    for (let color of colors) {
+        print('flowDemo', `  - ${color}`);
+    }
+
+    // for...in（遍历索引/属性）
+    print('flowDemo', '\nfor...in 遍历:');
+    for (let key in user) {
+        print('flowDemo', `  ${key}: ${user[key]}`);
+    }
+
+    // 嵌套循环：打印乘法表
+    print('flowDemo', '\n嵌套循环 - 乘法表:');
+    for (let i = 1; i <= 3; i++) {
+        let row = '';
+        for (let j = 1; j <= i; j++) {
+            row += `${i}×${j}=${i*j}  `;
+        }
+        print('flowDemo', row);
+    }
+
+    // ============================================
+    // 5. 自定义函数
+    // ============================================
+    print('funcDemo', '=== 自定义函数 ===');
+
+    // 5.1 普通函数声明
+    // 函数声明会被提升，可以在定义前调用
+    function add(a, b) {
+        return a + b;
+    }
+    print('funcDemo', `add(3, 7) = ${add(3, 7)}`);
+
+    // 5.2 函数表达式
+    const subtract = function(a, b) {
+        return a - b;
+    };
+    print('funcDemo', `subtract(10, 4) = ${subtract(10, 4)}`);
+
+    // 5.3 箭头函数
+    const max = (a, b) => a > b ? a : b;
+    print('funcDemo', `max(6, 8) = ${max(6, 8)}`);
+
+    // 5.4 带默认参数的函数
+    const greet = (name = '访客', greeting = '你好') => {
+        return `${greeting}，${name}！`;
+    };
+    print('funcDemo', `greet("小明", "早上好") = ${greet("小明", "早上好")}`);
+    print('funcDemo', `greet() = ${greet()}`);
+
+    // 5.5 剩余参数函数
+    const sumAll = (...nums) => {
+        return nums.reduce((sum, n) => sum + n, 0);
+    };
+    print('funcDemo', `sumAll(1,2,3,4,5) = ${sumAll(1, 2, 3, 4, 5)}`);
+
+    // 5.6 回调函数
+    const process = (arr, fn) => {
+        return arr.map(fn);
+    };
+    let numbers = [1, 2, 3, 4];
+    let doubled = process(numbers, n => n * 2);
+    let squared = process(numbers, n => n ** 2);
+    print('funcDemo', `数组 [${numbers}] 翻倍: [${doubled}]`);
+    print('funcDemo', `数组 [${numbers}] 平方: [${squared}]`);
+
+    // 5.7 递归函数：计算阶乘
+    const factorial = n => n <= 1 ? 1 : n * factorial(n - 1);
+    print('funcDemo', `factorial(5) = ${factorial(5)} (5! = 5×4×3×2×1)`);
+
+    // 5.8 IIFE（立即执行函数）
+    (function() {
+        print('funcDemo', '\nIIFE 立即执行: 函数在定义时立即运行');
+    })();
+
+    print('funcDemo', '\n=== 练习完成 ===');
+    </script>
+</body>
+</html>
